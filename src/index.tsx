@@ -158,7 +158,7 @@ ui.PanelListItemTitle = styled.h4`
   font-weight: 400;
 `
 ui.PanelListItemDetails = styled.div`
-  
+width: 100%;  
 `
 ui.PanelListItemLabel = styled.span`
   display: inline-block;
@@ -176,6 +176,31 @@ ui.PanelListItemLabel = styled.span`
 `
 ui.PanelListItemLabelPlaceholder = styled.div`
   height: 21px;
+`
+ui.PanelListItemArrowContainer = styled.div`
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 16px;
+  width: 32px;
+`
+ui.PanelListItemArrow = styled.div`
+  width: 0; 
+  height: 0; 
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid ${s['color-dirty-blue']};
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: 200ms all ease;
+
+  ${(props: { isActive: boolean }) => !props.isActive && css`
+    ${ui.PanelListItem}:hover & {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  `}
 `
 
 class App extends React.Component<{}, AppState> {
@@ -205,7 +230,7 @@ class App extends React.Component<{}, AppState> {
           
           <ui.PanelList>
             {videos.map((video, i) =>
-              <ui.PanelListItem isActive={i === this.state.active} onClick={() => this.handleChangeActiveVideo(i)} role="button" key={i}>
+              <ui.PanelListItem title={i !== this.state.active ? 'Click to play' : ''} isActive={i === this.state.active} onClick={() => this.handleChangeActiveVideo(i)} role="button" key={i}>
                 <ui.PanelListItemThumbnail>
                   <ui.PanelListItemThumbnailImg src={utils.getYoutubeThumbnail(video.url)} />
                 </ui.PanelListItemThumbnail>
@@ -214,6 +239,10 @@ class App extends React.Component<{}, AppState> {
                   {i === this.state.active ? <ui.PanelListItemLabel>Now Playing</ui.PanelListItemLabel> : <ui.PanelListItemLabelPlaceholder />}
                   <ui.PanelListItemTitle>{video.title}</ui.PanelListItemTitle>
                 </ui.PanelListItemDetails>
+
+                <ui.PanelListItemArrowContainer>
+                  <ui.PanelListItemArrow isActive={i === this.state.active} />
+                </ui.PanelListItemArrowContainer>
               </ui.PanelListItem>
             )}
             </ui.PanelList>
