@@ -32,6 +32,7 @@ const videos = [{
 interface AppState {
   active: number
   loading: boolean
+  hasScrolled: boolean
 }
 
 const ui: any = {} as any
@@ -53,9 +54,17 @@ ui.Panel = styled.div`
   overflow: hidden;
 `
 ui.PanelMain = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
+  z-index: 100;
+  box-shadow: 0 0 16px rgba(0,0,0,0.2);
+  transition: 400ms all ease;
+
+  ${(props: any) => props.hasScrolled && css`
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  `}
 `
 ui.PanelLoader = styled.div`
   position: absolute;
@@ -83,8 +92,10 @@ ui.PanelMainContainerVideo = styled.div`
   z-index: 100;
 `
 ui.PanelList = styled.div`
-  max-height: 480px;
+  position: relative;
+  max-height: 320px;
   overflow-y: scroll;
+  z-index: 99;
 
   /* @source https://gist.github.com/devinrhode2/2573411 */
 
@@ -207,8 +218,11 @@ ui.PanelListItemArrow = styled.div`
 class App extends React.Component<{}, AppState> {
   state: AppState = {
     active: 0,
-    loading: false
+    loading: false,
+    hasScrolled: false
   }
+
+  scrollTimeout: number | undefined
 
   render() {
     const activeVideo = videos[this.state.active]
@@ -216,7 +230,7 @@ class App extends React.Component<{}, AppState> {
     return (
       <ui.Container>
         <ui.Panel>
-          <ui.PanelMain>
+          <ui.PanelMain hasScrolled={this.state.hasScrolled}>
             <ui.PanelMainContainer>
               {this.state.active !== -1 && <UiTransitionFadeIn>
               <ui.PanelMainContainerVideo>
@@ -229,7 +243,7 @@ class App extends React.Component<{}, AppState> {
             </ui.PanelMainContainer>
           </ui.PanelMain>
           
-          <ui.PanelList>
+          <ui.PanelList onScroll={this.handleScrollList}>
             {videos.map((video, i) =>
               <ui.PanelListItem title={i !== this.state.active ? 'Click to play' : ''} isActive={i === this.state.active} onClick={() => this.handleChangeActiveVideo(i)} role="button" key={i}>
                 <ui.PanelListItemThumbnail>
@@ -250,6 +264,17 @@ class App extends React.Component<{}, AppState> {
         </ui.Panel>
       </ui.Container>
     )
+  }
+
+  handleScrollList = (evt: any) => {
+    evt.persist()
+    window.clearTimeout(this.scrollTimeout);
+    // @todo Throttle
+    this.scrollTimeout = window.setTimeout(() => {
+      this.setState({
+        hasScrolled: evt.target.scrollTop > 75
+      })
+    }, 100)
   }
 
   handleVideoLoad = () => {
