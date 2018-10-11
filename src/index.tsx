@@ -175,7 +175,8 @@ ui.PanelListItemLabel = styled.span`
   letter-spacing: 2px;
 `
 ui.PanelListItemLabelPlaceholder = styled.div`
-  height: 21px;
+  height: 16px;
+  margin-bottom: 8px;
 `
 ui.PanelListItemArrowContainer = styled.div`
   flex-shrink: 0;
@@ -236,7 +237,7 @@ class App extends React.Component<{}, AppState> {
                 </ui.PanelListItemThumbnail>
 
                 <ui.PanelListItemDetails>
-                  {i === this.state.active ? <ui.PanelListItemLabel>Now Playing</ui.PanelListItemLabel> : <ui.PanelListItemLabelPlaceholder />}
+                  {i === this.state.active ? <UiTransitionFadeIn movement='small'><ui.PanelListItemLabel>Now Playing</ui.PanelListItemLabel></UiTransitionFadeIn> : <ui.PanelListItemLabelPlaceholder />}
                   <ui.PanelListItemTitle>{video.title}</ui.PanelListItemTitle>
                 </ui.PanelListItemDetails>
 
