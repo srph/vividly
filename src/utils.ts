@@ -9,7 +9,7 @@ export function getYoutubeId(url: string): string {
  * Generate google autodownload url
  */
 export function getYoutubeEmbedUrl(url: string): string {
-  return `https://www.youtube.com/embed/${getYoutubeId(url)}`
+  return `https://www.youtube.com/embed/${getYoutubeId(url)}?rel=0&amp;controls=0&amp;showinfo=0`
 }
 
 /**
