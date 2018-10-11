@@ -1,0 +1,23 @@
+export default {
+  'color-white': '#fff',
+  'color-black': '#000',
+  'color-light-silver': '#f9fafb',
+  'color-dark-silver': '#8898aa',
+  'color-silver': '#d9e3ed',
+  'color-gray': '#B4B4B4',
+  'color-dark-gray': '#434343',
+  'color-red': '#FC6D6B',
+  'color-blue': '#1E6EF9',
+  'color-sky-blue': '#5b96fb',
+  'color-dirty-blue': '#00072E',
+  'color-green': '#01dc87',
+  'color-lavender': '#43458B',
+  'color-light-lavender': '#6466bf',
+  'drop-shadow': '0px 2px 4px rgba(0,0,0,0.1)',
+  'drop-shadow-lower': '0px 4px 4px rgba(0,0,0,0.1)',
+  'font-family': `'Inter UI','San Francisco',-apple-system,'BlinkMacSystemFont','".SFSNText-Regular"','Segoe UI','Ubuntu','Helvetica',sans-serif`,
+  'font-family-heading': `"Montserrat", 'Inter UI','San Francisco',-apple-system,'BlinkMacSystemFont','".SFSNText-Regular"','Segoe UI','Ubuntu','Helvetica',sans-serif`,
+  'font-family-mono': '"Dank Mono", "Fira Sans", "Roboto Mono", "Consolas", "Courier New", monospace',
+  'font-size': 14,
+  'border-radius': 3
+}
