@@ -16,23 +16,17 @@ import UiDotsLoader from './UiDotsLoader'
 import * as utils from './utils'
 
 const videos = [{
-  url: 'https://www.youtube.com/watch?v=hQFnhFg3LME',
-  title: 'Dank Willow: Terrorize-Dagger PLAY'
+  url: 'https://www.youtube.com/watch?v=fb6tH9G8MU0',
+  title: 'World\'s Most Expensive Homes Featuring Palazzo di Amore'
 }, {
-  url: 'https://www.youtube.com/watch?v=i79M4nKW1Ms',
-  title: 'Most Beautiful & Emotional Shigatsu wa Kimi no Uso OST IMO'
+  url: 'https://www.youtube.com/watch?v=sS065Z0WFXU',
+  title: 'Elizabeth Taylor\'s Home'
 },  {
-  url: 'https://www.youtube.com/watch?v=i79M4nKW1Ms',
-  title: 'Most Beautiful & Emotional Shigatsu wa Kimi no Uso OST IMO'
-},  {
-  url: 'https://www.youtube.com/watch?v=i79M4nKW1Ms',
-  title: 'Most Beautiful & Emotional Shigatsu wa Kimi no Uso OST IMO'
-},  {
-  url: 'https://www.youtube.com/watch?v=i79M4nKW1Ms',
-  title: 'Most Beautiful & Emotional Shigatsu wa Kimi no Uso OST IMO'
-},  {
-  url: 'https://www.youtube.com/watch?v=i79M4nKW1Ms',
-  title: 'Most Beautiful & Emotional Shigatsu wa Kimi no Uso OST IMO'
+  url: 'https://www.youtube.com/watch?v=nZKe4MEbpfk',
+  title: 'Behind The Gates 9528 Dalegrove'
+}, {
+  url: 'https://www.youtube.com/watch?v=1e1JNVCU7F0',
+  title: '1050 Summit: The David O\'Selznick Estate!'
 }]
 
 interface AppState {
@@ -155,7 +149,6 @@ ui.PanelListItemThumbnail = styled.div`
   border-radius: 4px;
 `
 ui.PanelListItemThumbnailImg = styled.img`
-  object-fit: cover;
   max-width: 150%;
   display: block;
 `
@@ -201,7 +194,7 @@ class App extends React.Component<{}, AppState> {
             <ui.PanelMainContainer>
               {this.state.active !== -1 && <UiTransitionFadeIn>
               <ui.PanelMainContainerVideo>
-                <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${utils.getYoutubeId(activeVideo.url)}`} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen onLoad={this.handleVideoLoad} style={{ opacity: this.state.loading ? 0 : 1 }}></iframe>
+                <iframe width="100%" height="100%" src={utils.getYoutubeEmbedUrl(activeVideo.url)} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen onLoad={this.handleVideoLoad} style={{ opacity: this.state.loading ? 0 : 1 }}></iframe>
               </ui.PanelMainContainerVideo></UiTransitionFadeIn>}
 
               <ui.PanelLoader>
@@ -214,7 +207,7 @@ class App extends React.Component<{}, AppState> {
             {videos.map((video, i) =>
               <ui.PanelListItem isActive={i === this.state.active} onClick={() => this.handleChangeActiveVideo(i)} role="button" key={i}>
                 <ui.PanelListItemThumbnail>
-                  <ui.PanelListItemThumbnailImg src={`https://img.youtube.com/vi/${utils.getYoutubeId(video.url)}/maxresdefault.jpg`} />
+                  <ui.PanelListItemThumbnailImg src={utils.getYoutubeThumbnail(video.url)} />
                 </ui.PanelListItemThumbnail>
 
                 <ui.PanelListItemDetails>
