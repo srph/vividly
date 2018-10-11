@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { render } from 'react-dom'
+import * as ReactDOM from 'react-dom'
 import 'sanitize.css'
 import styled, {css} from 'styled-components'
 import s from './styles'
@@ -266,9 +266,11 @@ class App extends React.Component<{}, AppState> {
         this.setState({
           active: i
         })
+
+        ReactDOM.findDOMNode(this).scrollIntoView({ behavior: 'smooth', block: 'start' })
       }, 100)
     })
   }
 }
 
-render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))
