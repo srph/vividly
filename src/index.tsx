@@ -267,7 +267,7 @@ ui.PanelMainContainerVideo = styled.div`
 `
 ui.PanelList = styled.div`
   position: relative;
-  max-height: 320px;
+  max-height: 480px;
   overflow-y: scroll;
   z-index: 99;
 
