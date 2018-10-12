@@ -17,20 +17,188 @@ import * as utils from './utils'
 
 const videos = [
   {
-    url: 'https://www.youtube.com/watch?v=fb6tH9G8MU0',
-    title: "World's Most Expensive Homes Featuring Palazzo di Amore"
+    title: "World's Most Expensive Homes Featuring Palazzo di Amore",
+    url: 'https://www.youtube.com/watch?v=fb6tH9G8MU0'
   },
   {
-    url: 'https://www.youtube.com/watch?v=sS065Z0WFXU',
-    title: "Elizabeth Taylor's Home"
+    title: "Elizabeth Taylor's Home",
+    url: 'https://www.youtube.com/watch?v=sS065Z0WFXU'
   },
   {
-    url: 'https://www.youtube.com/watch?v=nZKe4MEbpfk',
-    title: 'Behind The Gates 9528 Dalegrove'
+    title: 'Behind The Gates 9528 Dalegrove',
+    url: 'https://www.youtube.com/watch?v=nZKe4MEbpfk'
   },
   {
-    url: 'https://www.youtube.com/watch?v=1e1JNVCU7F0',
-    title: "1050 Summit: The David O'Selznick Estate!"
+    title: "1050 Summit: The David O'Selznick Estate!",
+    url: 'https://www.youtube.com/watch?v=1e1JNVCU7F0'
+  },
+  {
+    title: 'Behind the Gates 9274 Sierra Mar Drive',
+    url: 'https://www.youtube.com/watch?v=683ekcc2KDI'
+  },
+  {
+    title: 'Joyce Rey Biography',
+    url: 'https://www.youtube.com/watch?v=_I1iz5g3Pk0'
+  },
+  {
+    title: 'Famous Hollywood Home for Sale',
+    url: 'https://www.youtube.com/watch?v=GVnJgT1Cz2Q'
+  },
+  {
+    title: 'Square Feet: An Architectural Beauty on the West Coast',
+    url: 'https://www.youtube.com/watch?v=caIb4I1jozE'
+  },
+  {
+    title: 'NBC Open House - Casa Logo',
+    url: 'https://www.youtube.com/watch?v=QWUVIVLQ8hg'
+  },
+  {
+    title: 'NBC Open House: Alpine Drive, Beverly Hills',
+    url: 'https://www.youtube.com/watch?v=Ej2tWcAeUO8'
+  },
+  {
+    title: 'Bloomberg TV - Palazzo di Amore',
+    url: 'https://www.youtube.com/watch?v=kHJK2wm6p3U'
+  },
+  {
+    title: 'Palazzo di Amore - Good Morning America 2014',
+    url: 'https://www.youtube.com/watch?v=WILKjOIUekA'
+  },
+  {
+    title: 'Napa Valley - Robin Williams Estate',
+    url: 'https://www.youtube.com/watch?v=sFOw7qo9VbY'
+  },
+  {
+    title: 'Santa Barbara, CA touring a historic Roman villa set on 11 acres',
+    url: 'https://www.youtube.com/watch?v=f0b9yhUFYj0'
+  },
+  {
+    title: 'Romantic Palm Springs Retreat of Suzanne Somers - CNN Money',
+    url: 'https://www.youtube.com/watch?v=vwKqizZ2u2o'
+  },
+  {
+    title: 'Good Morning Britain - Pacific Palisades',
+    url: 'https://www.youtube.com/watch?v=X1pEsz95nbs'
+  },
+  {
+    title: 'Joyce Rey CBPI',
+    url: 'https://www.youtube.com/watch?v=5ovMMQw6bgc'
+  },
+  {
+    title: 'Joyce Rey Coldwell Banker Previews International R1',
+    url: 'https://www.youtube.com/watch?v=v3u0DXItydY'
+  },
+  {
+    title: 'Tour of Le Palais Des Anges',
+    url: 'https://www.youtube.com/watch?v=iE0J4T8eBCk'
+  },
+  {
+    title: 'Beautiful Homes Anzio Estate',
+    url: 'https://www.youtube.com/watch?v=7msuD_xaymE'
+  },
+  {
+    title: 'Beautiful Homes Stone Canyon Estate',
+    url: 'https://www.youtube.com/watch?v=5TZgy8c_knI'
+  },
+  {
+    title: 'Beautiful Homes Sunset Estate',
+    url: 'https://www.youtube.com/watch?v=bmwVcwO3TUg'
+  },
+  {
+    title: 'BHGLAAR 108th Installation Gala',
+    url: 'https://www.youtube.com/watch?v=_dgIYRZC9SM'
+  },
+  {
+    title: 'California Beach Mansion MariSol',
+    url: 'https://www.youtube.com/watch?v=ZYuqytr9gNY'
+  },
+  {
+    title: 'Delfern',
+    url: 'https://www.youtube.com/watch?v=kWKGLulk3bo'
+  },
+  {
+    title: 'Eye on LA',
+    url: 'https://www.youtube.com/watch?v=IHTnWRrr47c'
+  },
+  {
+    title: 'House of the Week',
+    url: 'https://www.youtube.com/watch?v=lvzv9DyJztY'
+  },
+  {
+    title: 'Inside Susan Somers Desert Oasis',
+    url: 'https://www.youtube.com/watch?v=UyDfdm4YNno'
+  },
+  {
+    title: 'Inside $55M French Palladian',
+    url: 'https://www.youtube.com/watch?v=uNKlRs4pZA0'
+  },
+  {
+    title: 'A Selection of Properties',
+    url: 'https://www.youtube.com/watch?v=0E4w2M8M4BA'
+  },
+  {
+    title: 'Jr Gives Tour Of La Mansion',
+    url: 'https://www.youtube.com/watch?v=IyYL3z9HmKE'
+  },
+  {
+    title: 'JR GMTV',
+    url: 'https://www.youtube.com/watch?v=aK02pCoyFQA'
+  },
+  {
+    title: 'JR Sold Listings',
+    url: 'https://www.youtube.com/watch?v=w54HJYN0BZ0'
+  },
+  {
+    title: 'Luxury Lifestyles TV JR',
+    url: 'https://www.youtube.com/watch?v=8wZGWrvbYwk'
+  },
+  {
+    title: 'Michael Corbett Extra TV',
+    url: 'https://www.youtube.com/watch?v=5JUv6xpfjjE'
+  },
+  {
+    title: 'Michael Corbett Interview',
+    url: 'https://www.youtube.com/watch?v=8WiRWvhLLsY'
+  },
+  {
+    title: 'The Californian',
+    url: 'https://www.youtube.com/watch?v=dFrMcP3jkzg'
+  },
+  {
+    title: 'The First Lady Of Luxury Real Estate',
+    url: 'https://www.youtube.com/watch?v=xPlDXJDD7w0'
+  },
+  {
+    title: 'UNICEF Nepal Field Visit',
+    url: 'https://www.youtube.com/watch?v=u3fciKzoTyI'
+  },
+  {
+    title: 'Square Feet: The Essence Of Socal Living',
+    url: 'https://www.youtube.com/watch?v=XLXt6NF66qk'
+  },
+  {
+    title: 'Luxury Listing Wayne Gretzky',
+    url: 'https://www.youtube.com/watch?v=ifTM0uuCXwM'
+  },
+  {
+    title: 'Oz Home with Private Bowling Alley',
+    url: 'https://www.youtube.com/watch?v=muJD7d2dcmw'
+  },
+  {
+    title: 'Luxury Listing Beverly Hills Celebrity Estate',
+    url: 'https://www.youtube.com/watch?v=BEItnxeTC3Y'
+  },
+  {
+    title: 'Luxury Listing: $15.5M Bel Air Villa With Italian Gardens',
+    url: 'https://www.youtube.com/watch?v=s82PAyeLE2E'
+  },
+  {
+    title: 'Michael Corbett Extra TV, Joyce Rey Presents Wanna Buy A Ma-1',
+    url: 'https://www.youtube.com/watch?v=W5yl4P1hCo8'
+  },
+  {
+    title: 'Amber Hills 3100 Mandeville Canyon Road',
+    url: 'https://www.youtube.com/watch?v=2S4qYg_u1Do'
   }
 ]
 
@@ -44,7 +212,7 @@ const ui: any = {} as any
 ui.Container = styled.div`
   padding: 16px;
   margin: 0 auto;
-  max-width: 480px;
+  max-width: 640px;
   font-family: ${s['font-family']};
   font-size: ${s['font-size']};
 `
