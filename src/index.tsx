@@ -213,7 +213,7 @@ ui.Container = styled.div`
   padding: 32px;
   margin: 0 auto;
   font-family: ${s['font-family']};
-  font-size: ${s['font-size']};
+  font-size: ${s['font-size']}px;
 `
 ui.Panel = styled.div`
   color: ${s['color-dirty-blue']};
@@ -353,7 +353,7 @@ ui.PanelListItemThumbnailImg = styled.img`
   max-width: 150%;
   display: block;
 `
-ui.PanelListItemTitle = styled.h5`
+ui.PanelListItemTitle = styled.h3`
   margin: 0;
   line-height: 1.5;
   font-weight: 400;
