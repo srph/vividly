@@ -210,9 +210,8 @@ interface AppState {
 
 const ui: any = {} as any
 ui.Container = styled.div`
-  padding: 16px;
+  padding: 32px;
   margin: 0 auto;
-  max-width: 640px;
   font-family: ${s['font-family']};
   font-size: ${s['font-size']};
 `
