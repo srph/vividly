@@ -1,3 +1,4 @@
+import './types';
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import 'sanitize.css'
@@ -9,6 +10,7 @@ import s from './styles'
 // import UiInput from './UiInput'
 import UiTransitionFadeIn from './UiTransitionFadeIn'
 import UiDotsLoader from './UiDotsLoader'
+import * as Dotdotdot from 'react-dotdotdot'
 // import CopyButton from './CopyButton'
 // import UiButton from './UiButton'
 // import Footer from './Footer'
@@ -466,7 +468,9 @@ class App extends React.Component<{}, AppState> {
                       <ui.PanelListItemLabel>Now Playing</ui.PanelListItemLabel>
                     </UiTransitionFadeIn>
                   )}
-                  <ui.PanelListItemTitle>{video.title}</ui.PanelListItemTitle>
+                  <Dotdotdot clamp={2}>
+                    <ui.PanelListItemTitle>{video.title}</ui.PanelListItemTitle>
+                  </Dotdotdot>
                 </ui.PanelListItemDetails>
 
                 <ui.PanelListItemArrowContainer>
