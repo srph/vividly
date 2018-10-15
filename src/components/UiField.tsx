@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled, { css } from 'styled-components'
-import s from './styles'
+import s from '../styles'
 
 interface UiFieldProps {
   id?: string

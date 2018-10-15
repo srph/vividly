@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled, {keyframes} from 'styled-components'
-import s from './styles'
+import s from '../styles'
 
 const kf: any = {} as any
 kf.fadeDelay = keyframes`

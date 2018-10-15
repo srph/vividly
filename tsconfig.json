@@ -17,7 +17,12 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "baseUrl": ".",
-    "preserveConstEnums": true
+    "preserveConstEnums": true,
+    "paths": {
+      "@app/*": [
+        "src/*"
+      ]
+    }
   },
   "exclude": [
     "node_modules",

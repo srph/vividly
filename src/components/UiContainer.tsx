@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import s from './styles'
+import s from '../styles'
 
 const ui = {} as any
 ui.Wrapper = styled.div`
