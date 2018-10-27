@@ -2,12 +2,12 @@ import './types';
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import 'sanitize.css'
-import Preview from '@app/screens/preview'
+import Index from '@app/screens/index'
 
 class App extends React.Component<{}, {}> {
   render() {
     return (
-      <Preview />
+      <Index />
     )
   }
 }
