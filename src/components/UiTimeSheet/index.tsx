@@ -3,6 +3,7 @@ import styled, {css} from 'styled-components'
 // import s from '@app/styles'
 import UiContainer from '@app/components/UiContainer'
 import * as moment from 'moment'
+import UiNavigation from '@app/components/UiNavigation'
 
 const sv = {
   TIME_SLOT_HEIGHT: 128
@@ -11,9 +12,6 @@ const sv = {
 const ui = {} as any
 ui.TimeSlot = styled.div`
   display: flex;
-  // &:nth-child(even) {
-  //   background: rgba(0, 0, 0, 0.1);
-  // }
 `
 ui.TimeSlotSheet = styled.div`
   flex-shrink: 0;
@@ -60,6 +58,14 @@ ui.TimeSlotCardsItem = styled.div`
     );
     border-radius: 0;
   `}
+
+  ${(props: any) => props.type === 'celebration' && css`
+    background: linear-gradient(#75ffbf, #c8ffbb);
+  `}
+
+  ${(props: any) => props.type === 'activity' && css`
+    background: linear-gradient(#75acff,#bbf9ff);
+  `}
 `
 ui.TimeSlotCardsItemTitle = styled.h6`
   margin: 0;
@@ -68,6 +74,14 @@ ui.TimeSlotCardsItemTitle = styled.h6`
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 8px;
+
+  ${(props: any) => props.type === 'celebration' && css`
+    color: #54b596;
+  `}
+
+  ${(props: any) => props.type === 'activity' && css`
+    color: #fff;
+  `}
 `
 ui.TimeSlotCardsItemDescription = styled.p`
   margin: 0;
@@ -75,6 +89,7 @@ ui.TimeSlotCardsItemDescription = styled.p`
   font-size: 18px;
   min-height: 45px;
   margin-bottom: 16px;
+
 `
 ui.TimeSlotCardsItemCategory = styled.div`
   display: flex;
@@ -111,7 +126,7 @@ ui.Footer = styled.footer`
   font-size: 10px;
 `
 
-interface TimeSlot {
+export interface IUiTimeSheetTimeSlot {
   startTime: string
   endTime?: string
   cards: {
@@ -124,138 +139,20 @@ interface TimeSlot {
   }[]
 }
 
-const data: TimeSlot[] = [
-  {
-    startTime: '6:00 AM',
-    endTime: '7:00 AM',
-    cards: [
-      {
-        title: 'Huddle',
-        type: 'break',
-        description: 'Prep things up',
-        categoryIcon: '🙌'
-      }
-    ]
-  },
-  {
-    startTime: '8:00 AM',
-    endTime: '9:00 AM',
-    cards: [
-      {
-        title: 'Meet up at Philam',
-        description: 'Pick up mama and papa',
-        categoryIcon: '🚗',
-        categoryText: 'Tondo &mdash; Philam',
-        group: 'kier'
-      },
-      {
-        title: 'Meet up at Philam',
-        description: 'Pick up Mom from Makati',
-        categoryIcon: '🚗',
-        categoryText: 'Makati &mdash; Philam',
-        group: 'dad'
-      }
-    ]
-  },
-  {
-    startTime: '9:00 AM',
-    endTime: '10:30 AM',
-    cards: [
-      {
-        title: 'Departure',
-        description: "Let's go boys!",
-        categoryIcon: '🚗',
-        categoryText: 'Philam &mdash; Marquee Mall, Pampangga'
-      }
-    ]
-  },
-  {
-    startTime: '10:30 AM',
-    endTime: '12:20 PM',
-    cards: [
-      {
-        title: 'Lunch',
-        description: 'Marquee Mall, Pampangga',
-        categoryIcon: '🍆'
-      }
-    ]
-  },
-  {
-    startTime: '12:20 PM',
-    endTime: '12:30 PM',
-    cards: [
-      {
-        title: 'Huddle',
-        type: 'break',
-        description: 'Prep before taking off',
-        categoryIcon: '🙌'
-      }
-    ]
-  },
-  {
-    startTime: '12:30 PM',
-    endTime: '2:30 PM',
-    cards: [
-      {
-        title: 'Departure',
-        description: 'To the town house',
-        categoryIcon: '🚗',
-        categoryText: 'Marquee Mall &mdash; Subic'
-      }
-    ]
-  },
-  {
-    startTime: '2:30 PM',
-    endTime: '3:30 PM',
-    cards: [
-      {
-        title: 'Check in',
-        description: 'Lay down belongings',
-        categoryIcon: '😳'
-      }
-    ]
-  },
-  {
-    startTime: '3:30 PM',
-    endTime: '7:00 PM',
-    cards: [
-      {
-        title: 'Beach time',
-        description: 'Look at those sexy ladies',
-        categoryIcon: '👙'
-      }
-    ]
-  },
-  {
-    startTime: '7:00 PM',
-    endTime: '8:30 PM',
-    cards: [
-      {
-        title: 'Huddle',
-        type: 'break',
-        description: 'Back to rest house to wrap up',
-        categoryIcon: '🙌'
-      }
-    ]
-  },
-  {
-    startTime: '8:30 PM',
-    cards: [
-      {
-        title: 'Dinner',
-        type: 'celebration',
-        description: "Celebrate Mom's 50th birthday",
-        categoryIcon: '🎉'
-      }
-    ]
-  }
-]
+interface IUiTimeSheetProps {
+  data: IUiTimeSheetTimeSlot[]
+  footerText: string
+  navigationIndex: number
+  onNavigationChange: (navigationIndex: number) => void
+}
 
-class IndexScreen extends React.Component<{}, {}> {
+class Day2Screen extends React.Component<IUiTimeSheetProps, {}> {
   render(): JSX.Element {
     return (
       <UiContainer>
-        {data.map((timeSlot, i) => {
+        <UiNavigation index={this.props.navigationIndex} onChange={this.props.onNavigationChange} />
+
+        {this.props.data.map((timeSlot, i) => {
           const startTime = moment(timeSlot.startTime, 'h:mm a')
           const endTime = moment(timeSlot.endTime, 'h:mm a')
           const duration = moment.duration(endTime.diff(startTime)).asHours()
@@ -276,8 +173,8 @@ class IndexScreen extends React.Component<{}, {}> {
                   <ui.TimeSlotCardsItem type={card.type} height={timeHeight} key={j}>
                     {Boolean(card.group) && <ui.TimeSlotCardsItemGroup src={`/img/${card.group === 'kier' ? 'me.png' : 'dad.jpg'}`} alt="Kier's photo" />}
 
-                    <ui.TimeSlotCardsItemTitle>{card.title}</ui.TimeSlotCardsItemTitle>
-                    <ui.TimeSlotCardsItemDescription>{card.description}</ui.TimeSlotCardsItemDescription>
+                    <ui.TimeSlotCardsItemTitle type={card.type}>{card.title}</ui.TimeSlotCardsItemTitle>
+                    <ui.TimeSlotCardsItemDescription type={card.type}>{card.description}</ui.TimeSlotCardsItemDescription>
 
                     <ui.TimeSlotCardsItemCategory>
                       <ui.TimeSlotCardsItemCategoryIcon>
@@ -293,10 +190,10 @@ class IndexScreen extends React.Component<{}, {}> {
           )
         })}
 
-        <ui.Footer>That's all for today!</ui.Footer>
+        <ui.Footer>{this.props.footerText}</ui.Footer>
       </UiContainer>
     )
   }
 }
 
-export default IndexScreen
+export default Day2Screen
