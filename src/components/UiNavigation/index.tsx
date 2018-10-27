@@ -10,12 +10,23 @@ ui.Container = styled.div`
   padding: 0 16px;
 `
 ui.Section = styled.button`
+  width: 33.33%;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   background: transparent;
   border: 0;
   outline: 0;
   color: #051350;
+  cursor: pointer;
+
+  &:nth-child(2) {
+    justify-content: center;
+  }
+
+  &:nth-child(3) {
+    justify-content: flex-end;
+  }
 `
 ui.SectionIcon = styled.div`
   font-size: 24px;
@@ -32,24 +43,30 @@ ui.SectionIcon = styled.div`
 interface IUiNavigationProps {
   index: number
   onChange: (navigationIndex: number) => void
+  onScrollToActiveTime: () => void
 }
 
 export default class UiNavigation extends React.Component<IUiNavigationProps, {}> {
   render(): JSX.Element {
     return (
       <ui.Container>
-        <ui.Section onClick={() => this.handleChange(-1)}>
+        {this.props.index === 2 ? <ui.Section onClick={() => this.handleChange(-1)}>
           <ui.SectionIcon>
             <i className='fa fa-long-arrow-left' />
           </ui.SectionIcon>
+          Day 1
+        </ui.Section> : <ui.Section />}
+
+        <ui.Section onClick={this.props.onScrollToActiveTime}>
+          🌞
         </ui.Section>
 
-        {this.props.index === 1 && <ui.Section onClick={() => this.handleChange(1)}>
-          Next
+        {this.props.index === 1 ? <ui.Section onClick={() => this.handleChange(1)}>
+          Day 2
           <ui.SectionIcon>
             <i className='fa fa-long-arrow-right' />
           </ui.SectionIcon>
-        </ui.Section>}
+        </ui.Section> : <ui.Section />}
       </ui.Container>
     )
   }

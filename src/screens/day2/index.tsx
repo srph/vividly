@@ -136,6 +136,7 @@ class Day2Screen extends React.Component<IDay2Props, {}> {
     return (
       <UiTimeSheet
         data={data}
+        day={2}
         footerText="Thank you for making this happen! 🎉"
         navigationIndex={2}
         onNavigationChange={this.props.onNavigationChange}

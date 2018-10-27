@@ -1,17 +1,23 @@
 import * as React from 'react'
 import styled, {css} from 'styled-components'
 // import s from '@app/styles'
-import UiContainer from '@app/components/UiContainer'
 import * as moment from 'moment'
+import UiContainer from '@app/components/UiContainer'
 import UiNavigation from '@app/components/UiNavigation'
+import UiTimeUpdater from '@app/components/UiTimeUpdater'
 
 const sv = {
-  TIME_SLOT_HEIGHT: 128
+  TIME_SLOT_HEIGHT: 128,
+  EVENT_DATE: '10/28/2018',
+  EVENT_DATE_END: '10/29/2018'
 }
 
 const ui = {} as any
 ui.TimeSlot = styled.div`
   display: flex;
+  ${(props: any) => props.isPast && css`
+    opacity: 0.3;
+  `}
 `
 ui.TimeSlotSheet = styled.div`
   flex-shrink: 0;
@@ -141,58 +147,98 @@ export interface IUiTimeSheetTimeSlot {
 
 interface IUiTimeSheetProps {
   data: IUiTimeSheetTimeSlot[]
+  day: number
   footerText: string
   navigationIndex: number
   onNavigationChange: (navigationIndex: number) => void
 }
 
+interface IUiTimeSheetSlotElement {
+  [key: string]: HTMLElement
+}
+
 class Day2Screen extends React.Component<IUiTimeSheetProps, {}> {
+  slotElement: IUiTimeSheetSlotElement = {}
+
+  getNow(): moment.Moment {
+    return moment()
+  }
+
+  getEventDate(): string {
+    return this.props.day === 1 ? sv.EVENT_DATE : sv.EVENT_DATE_END
+  }
+
   render(): JSX.Element {
+    const date = this.getEventDate()
+
     return (
-      <UiContainer>
-        <UiNavigation index={this.props.navigationIndex} onChange={this.props.onNavigationChange} />
+      <UiTimeUpdater interval={1000 * 60}>
+        {() => {
+          const now = this.getNow()
 
-        {this.props.data.map((timeSlot, i) => {
-          const startTime = moment(timeSlot.startTime, 'h:mm a')
-          const endTime = moment(timeSlot.endTime, 'h:mm a')
-          const duration = moment.duration(endTime.diff(startTime)).asHours()
-          const timeHeight = timeSlot.endTime == null
-            ? sv.TIME_SLOT_HEIGHT
-            : sv.TIME_SLOT_HEIGHT * Math.max(1, duration)
-          
           return (
-            <ui.TimeSlot key={i}>
-              <ui.TimeSlotSheet>
-                {timeSlot.startTime}
-                <br />
-                {timeSlot.endTime}
-              </ui.TimeSlotSheet>
+            <UiContainer>
+              <UiNavigation index={this.props.navigationIndex} onChange={this.props.onNavigationChange} onScrollToActiveTime={this.handleScrollToActiveTime} />
 
-              <ui.TimeSlotCards>
-                {timeSlot.cards.map((card, j) => (
-                  <ui.TimeSlotCardsItem type={card.type} height={timeHeight} key={j}>
-                    {Boolean(card.group) && <ui.TimeSlotCardsItemGroup src={`/img/${card.group === 'kier' ? 'me.png' : 'dad.jpg'}`} alt="Kier's photo" />}
+              {this.props.data.map((timeSlot, i) => {
+                const startTime = moment(`${date} ${timeSlot.startTime}`, 'MM/DD/YYYY h:mm a')
+                const endTime = moment(`${date} ${timeSlot.endTime || '11:59 PM'}`, 'MM/DD/YYYY h:mm a')
+                const duration = moment.duration(endTime.diff(startTime)).asHours()
+                const timeHeight = timeSlot.endTime == null
+                  ? sv.TIME_SLOT_HEIGHT
+                  : sv.TIME_SLOT_HEIGHT * Math.max(1, duration)
+                
+                return (
+                  <ui.TimeSlot isPast={now > endTime} key={i} innerRef={(c: HTMLElement) => this.slotElement[i] = c}>
+                    <ui.TimeSlotSheet>
+                      {timeSlot.startTime}
+                      <br />
+                      {timeSlot.endTime}
+                    </ui.TimeSlotSheet>
 
-                    <ui.TimeSlotCardsItemTitle type={card.type}>{card.title}</ui.TimeSlotCardsItemTitle>
-                    <ui.TimeSlotCardsItemDescription type={card.type}>{card.description}</ui.TimeSlotCardsItemDescription>
+                    <ui.TimeSlotCards>
+                      {timeSlot.cards.map((card, j) => (
+                        <ui.TimeSlotCardsItem type={card.type} height={timeHeight} key={j}>
+                          {Boolean(card.group) && <ui.TimeSlotCardsItemGroup src={`/img/${card.group === 'kier' ? 'me.png' : 'dad.jpg'}`} alt="Kier's photo" />}
 
-                    <ui.TimeSlotCardsItemCategory>
-                      <ui.TimeSlotCardsItemCategoryIcon>
-                        {card.categoryIcon}
-                      </ui.TimeSlotCardsItemCategoryIcon>
+                          <ui.TimeSlotCardsItemTitle type={card.type}>{card.title}</ui.TimeSlotCardsItemTitle>
+                          <ui.TimeSlotCardsItemDescription type={card.type}>{card.description}</ui.TimeSlotCardsItemDescription>
 
-                      <ui.TimeSlotCardsItemCategoryText dangerouslySetInnerHTML={{ __html: card.categoryText }} />
-                    </ui.TimeSlotCardsItemCategory>
-                  </ui.TimeSlotCardsItem>
-                ))}
-              </ui.TimeSlotCards>
-            </ui.TimeSlot>
+                          <ui.TimeSlotCardsItemCategory>
+                            <ui.TimeSlotCardsItemCategoryIcon>
+                              {card.categoryIcon}
+                            </ui.TimeSlotCardsItemCategoryIcon>
+
+                            <ui.TimeSlotCardsItemCategoryText dangerouslySetInnerHTML={{ __html: card.categoryText }} />
+                          </ui.TimeSlotCardsItemCategory>
+                        </ui.TimeSlotCardsItem>
+                      ))}
+                    </ui.TimeSlotCards>
+                  </ui.TimeSlot>
+                )
+              })}
+
+              <ui.Footer>{this.props.footerText}</ui.Footer>
+            </UiContainer>
           )
-        })}
-
-        <ui.Footer>{this.props.footerText}</ui.Footer>
-      </UiContainer>
+        }}
+      </UiTimeUpdater>
     )
+  }
+
+  handleScrollToActiveTime = () => {
+    const now = this.getNow()
+
+    const activeTimeSlotIndex = this.props.data.findIndex((data) => {
+      return moment(`${this.getEventDate()} ${data.endTime || '11:59 PM'}`, 'MM/DD/YYYY h:mm a') > now
+    })
+
+    if (activeTimeSlotIndex != -1) {
+      this.slotElement[activeTimeSlotIndex].scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
   }
 }
 
