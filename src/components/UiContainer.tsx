@@ -5,14 +5,14 @@ import styled, { css } from 'styled-components'
 const ui = {} as any
 ui.Wrapper = styled.div`
   margin: 0 auto;
-  padding: 16px;
+  padding: 0 16px;
 
   ${(props: any) => props.size === 'sm' && css`
     width: 320px;
   `}
 
-  ${(props: any) => props.size === 'sm' && css`
-    width: 640px;
+  ${(props: any) => props.size === 'lg' && css`
+    width: 1200px;
   `}
 `
 interface UiContainerProps {
