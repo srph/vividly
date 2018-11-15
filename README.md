@@ -1,2 +1,13 @@
-## Sabik
-Itinerary for the Subic 2018 vacation
+## Powertext UI
+UI for the Powertext app
+
+### Setup
+```
+npm i
+npm start
+```
+
+#### Production
+```
+npm run build
+```
