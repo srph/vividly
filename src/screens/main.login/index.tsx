@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import UiField from '@app/components/UiField'
 import UiInput from '@app/components/UiInput'
 import UiButton from '@app/components/UiButton'
+import UiHeadingTitle from '@app/components/UiHeadingTitle'
 import linkState from 'linkstate'
 
 const ui = {} as any
@@ -36,7 +37,7 @@ class MainLoginScreen extends React.Component<RouteComponentProps> {
 
     return (
       <ui.LoginContainer>
-        <ui.LoginHeading>Welcome Back!</ui.LoginHeading>
+        <UiHeadingTitle text="Welcome Back!" isCentered />
 
         <form onSubmit={this.handleSubmit}>
           <UiField label="Username" spacer>

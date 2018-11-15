@@ -10,6 +10,10 @@ ui.Wrapper = styled.div`
   ${(props: any) => props.size === 'sm' && css`
     width: 320px;
   `}
+
+  ${(props: any) => props.size === 'sm' && css`
+    width: 640px;
+  `}
 `
 interface UiContainerProps {
   children: any

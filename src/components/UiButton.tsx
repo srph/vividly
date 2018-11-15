@@ -47,6 +47,14 @@ ui.Button = styled.button`
   `}
 
   ${(props: IUiButtonProps) =>
+    props.preset === 'default' &&
+    css`
+    color: ${s['color-dirty-blue']};
+    background: transparent;
+    border: 1px solid ${s['color-silver']};
+  `}
+
+  ${(props: IUiButtonProps) =>
     props.preset === 'primary' &&
     css`
     color: ${s['color-white']};
@@ -65,7 +73,7 @@ ui.Button = styled.button`
 `
 
 interface IUiButtonProps {
-  preset?: 'clear' | 'primary' | ''
+  preset?: 'clear' | 'primary' | 'default'
   isBlock?: boolean
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
