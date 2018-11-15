@@ -10,13 +10,17 @@ interface UiFieldProps {
   error?: string
   tooltip?: string
   actions?: JSX.Element | JSX.Element[]
+  spacer?: boolean,
   wrapperRef?: (c: JSX.Element) => void
 }
 
 const ui = {} as any
 ui.Field = styled.div`
-  margin-bottom: 48px;
   transition: 250ms all ease;
+
+  ${props => props.spacer && css`
+    margin-bottom: 16px;
+  `}
 
   ${(props: { disabled: false }) =>
     props.disabled &&
@@ -60,7 +64,7 @@ ui.ActionsItem = styled.div`
 export default function UiField(props: UiFieldProps) {
   const actions = props.actions ? (Array.isArray(props.actions) ? props.actions : [props.actions]) : []
   return (
-    <ui.Field innerRef={props.wrapperRef} disabled={props.disabled}>
+    <ui.Field innerRef={props.wrapperRef} disabled={props.disabled} spacer={props.spacer}>
       <ui.Label htmlFor={props.id}>
         <span>{props.label}</span>
         {props.error && Boolean(props.error.length) && <ui.LabelError>Invalid JSON!</ui.LabelError>}

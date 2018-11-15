@@ -27,7 +27,7 @@ ui.Button = styled.button`
     cursor: not-allowed;
   }
 
-  ${(props: UiButtonProps) =>
+  ${(props: IUiButtonProps) =>
     props.preset !== 'clear' &&
     css`
     &:not(:disabled):hover,
@@ -37,7 +37,7 @@ ui.Button = styled.button`
     }
   `}
 
-  ${(props: UiButtonProps) =>
+  ${(props: IUiButtonProps) =>
     props.preset === 'clear' &&
     css`
     border: 0;
@@ -46,19 +46,38 @@ ui.Button = styled.button`
     background: transparent;
   `}
 
-  ${(props: UiButtonProps) =>
+  ${(props: IUiButtonProps) =>
     props.preset === 'primary' &&
     css`
     color: ${s['color-white']};
     background: ${s['color-lavender']};
   `}
+
+  ${(props: IUiButtonProps) => props.isBlock && css`
+    display: block;
+    width: 100%;
+  `}
+
+  ${(props: IUiButtonProps) => props.size === 'md' && css`
+    height: 40px;
+    line-height: 39px;
+  `}
 `
 
-interface UiButtonProps {
-  preset: 'clear' | 'primary' | ''
+interface IUiButtonProps {
+  preset?: 'clear' | 'primary' | ''
+  isBlock?: boolean
+  size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
 }
 
-export default function UiButton(props: any) {
+const UiButton: React.SFC<IUiButtonProps> = (props: IUiButtonProps) => {
   return <ui.Button {...props} />
 }
+
+UiButton.defaultProps = {
+  preset: 'clear',
+  size: 'sm'
+}
+
+export default UiButton

@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { createGlobalStyle } from 'styled-components'
-import s from '../styles'
+import s from '@app/styles'
 
 const ui = {} as any
-ui.Wrapper = createGlobalStyle`
+ui.RootStyling = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
@@ -21,6 +21,9 @@ interface IUiRootProps {
 
 export default function UiRoot({ children }: IUiRootProps) {
   return (
-    <ui.Wrapper>{children}</ui.Wrapper>
+    <React.Fragment>
+      <ui.RootStyling />
+      {children}
+    </React.Fragment>
   )
 }
