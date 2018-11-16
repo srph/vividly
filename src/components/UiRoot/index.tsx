@@ -13,6 +13,7 @@ ui.RootStyling = createGlobalStyle`
     font-size: ${s['font-size']};
     background: ${s['color-light-silver']};
     color: ${s['color-dirty-blue']};
+    font-size: 14px;
   }
 `
 interface IUiRootProps {
